@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass #for function automation
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
