@@ -2,9 +2,7 @@ numpy
 pandas
 matplotlib
 seaborn
-logging
 datetime
-os
-sys
+dill
 
 -e .
