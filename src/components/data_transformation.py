@@ -6,6 +6,7 @@ from sklearn.compose import ColumnTransformer #to create pipeline
 from sklearn.pipeline import Pipeline # for making pipeling
 from sklearn.impute import SimpleImputer # empty data handelling
 from sklearn.preprocessing import OneHotEncoder,StandardScaler #Encoding and standardiztion
+from sklearn.preprocessing import LabelEncoder #To encode the target label
 import os
 
 import sys
@@ -48,8 +49,8 @@ class DataTransformation:
             cat_pipeline = Pipeline(
                 steps=[
                     ('imputer',SimpleImputer(strategy='most_frequent')),
-                    ('OneHotEncoder',OneHotEncoder()),
-                    ('scalar',StandardScaler(with_mean=False)),
+                    ('OneHotEncoder',OneHotEncoder(sparse_output=False)),
+                    ('scalar',StandardScaler()),
                 ]
             )
             logging.info(f'Categorical columns: {categorical_columns}')
@@ -78,13 +79,17 @@ class DataTransformation:
            preprocessor_obj = self.get_data_tranformer_object()
            
            target_column = 'Level'
-           indexing_colums = ['','index']
+           numerical_columns=['Age']
 
            input_feature_train_df=train_df.drop(columns=[target_column],axis=1)
-           target_feature_train_df=train_df[target_column]
+        #    target_feature_train_df=train_df[target_column]
 
            input_feature_test_df=test_df.drop(columns=[target_column],axis=1)
-           target_feature_test_df=test_df[target_column]
+        #    target_feature_test_df=test_df[target_column]
+
+           label_encoder = LabelEncoder()
+           target_feature_train_df = label_encoder.fit_transform(train_df[target_column])
+           target_feature_test_df = label_encoder.transform(test_df[target_column])
 
            logging.info(
                f"Applying preprocessor object on training and test dataframe"
@@ -93,12 +98,16 @@ class DataTransformation:
            input_feature_train_arr = preprocessor_obj.fit_transform(input_feature_train_df)
            input_feature_test_arr = preprocessor_obj.transform(input_feature_test_df)
 
-           train_arr=np.c_[
-               input_feature_train_arr,np.array(target_feature_train_df)
-           ]
-           test_arr=np.c_[
-               input_feature_test_arr,np.array(target_feature_test_df)
-           ]
+
+           target_train_reshaped = np.array(target_feature_train_df).reshape(-1, 1)
+           target_test_reshaped = np.array(target_feature_test_df).reshape(-1, 1)
+
+           train_arr=np.concatenate((
+               input_feature_train_arr, target_train_reshaped #np.array(target_feature_train_df)
+           ), axis=1)
+           test_arr=np.concatenate((
+               input_feature_test_arr, target_test_reshaped #np.array(target_feature_test_df)
+           ), axis=1)
 
            logging.info('saving preprocessing object.')
 
