@@ -6,7 +6,7 @@ from catboost import CatBoostClassifier
 from sklearn.ensemble import (AdaBoostClassifier,GradientBoostingClassifier,RandomForestClassifier)
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import r2_score
+from sklearn.metrics import accuracy_score
 from xgboost import XGBClassifier
 
 from src.exception import CustomException
@@ -39,7 +39,51 @@ class ModelTrainer:
                 'CatBoost':CatBoostClassifier(verbose=False),
                 'AdaBoost':AdaBoostClassifier(),
             }
-            model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models)
+            param_grid = {
+                'RandomForest': {
+                    'n_estimators': [10, 20],
+                    'max_depth': [2, 3, 5],
+                    'min_samples_split': [10, 20],
+                    'min_samples_leaf': [5, 10],
+                    'max_features': ['sqrt']
+                },
+                'DecisionTree': {
+                    'max_depth': [None, 10, 20, 30],
+                    'min_samples_split': [2, 5, 10],
+                    'min_samples_leaf': [1, 2, 4],
+                    'max_features': ['sqrt', 'log2']
+                },
+                'GradientBoosting': {
+                    'n_estimators': [100, 200],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'max_depth': [3, 5, 10],
+                    'subsample': [0.6, 0.8, 1.0]
+                },
+                'XGBoost': {
+                    'n_estimators': [100, 200],
+                    'learning_rate': [0.01, 0.1],
+                    'max_depth': [3, 5, 10],
+                    'subsample': [0.7, 1.0],
+                    'colsample_bytree': [0.7, 1.0]
+                },
+                'KNN': {
+                    'n_neighbors': [3, 5, 7, 9],
+                    'weights': ['uniform', 'distance'],
+                    'algorithm': ['auto', 'ball_tree', 'kd_tree']
+                },
+                'CatBoost': {
+                    'depth': [4, 6, 10],
+                    'learning_rate': [0.01, 0.1],
+                    'iterations': [100, 200],
+                    'l2_leaf_reg': [1, 3, 5]
+                },
+                'AdaBoost': {
+                    'n_estimators': [50, 100, 200],
+                    'learning_rate': [0.01, 0.1, 1.0]
+                }
+            }
+
+            model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models,params=param_grid)
             best_model_score = max(sorted(model_report.values()))
             best_model_name = list(model_report.keys())[
                 list(model_report.values()).index(best_model_score)
@@ -54,12 +98,10 @@ class ModelTrainer:
                 file_path=self.model_trainer_config.trained_model_file_path,
                 obj=best_model
             )
-
-            predicted = best_model.predict(X_test)
-            r2_square = r2_score(y_test,predicted)
-            return r2_square
+            y_pred = best_model.predict(X_train)
+            train_score = accuracy_score(y_pred=y_pred,y_true=y_train)
+            return train_score
         
-
 
         except Exception as e:
             raise CustomException(e, sys)

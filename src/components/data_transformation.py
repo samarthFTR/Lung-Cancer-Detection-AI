@@ -7,6 +7,7 @@ from sklearn.pipeline import Pipeline # for making pipeling
 from sklearn.impute import SimpleImputer # empty data handelling
 from sklearn.preprocessing import OneHotEncoder,StandardScaler #Encoding and standardiztion
 from sklearn.preprocessing import LabelEncoder #To encode the target label
+from sklearn.decomposition import PCA #For feature reduction
 import os
 
 import sys
@@ -44,6 +45,7 @@ class DataTransformation:
                 steps=[
                     ('imputer',SimpleImputer(strategy="median")),
                     ('scalar',StandardScaler()),
+                    ('pca', PCA(n_components=0.85)),
                 ]
             )
             cat_pipeline = Pipeline(
@@ -51,6 +53,7 @@ class DataTransformation:
                     ('imputer',SimpleImputer(strategy='most_frequent')),
                     ('OneHotEncoder',OneHotEncoder(sparse_output=False)),
                     ('scalar',StandardScaler()),
+                    ('pca', PCA(n_components=0.85)),
                 ]
             )
             logging.info(f'Categorical columns: {categorical_columns}')
