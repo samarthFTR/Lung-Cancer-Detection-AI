@@ -4,5 +4,6 @@ matplotlib
 seaborn
 datetime
 dill
-
+xgboost
+catboost
 -e .
