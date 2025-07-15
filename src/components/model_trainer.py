@@ -93,7 +93,7 @@ class ModelTrainer:
             logging.info(f"Best found mode on dataset {best_model_name}")
 
             best_model = models[best_model_name]
-            print(model_report)
+            print("Test Accuracy",model_report)
             save_object(
                 file_path=self.model_trainer_config.trained_model_file_path,
                 obj=best_model

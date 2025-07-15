@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lung Cancer Risk Prediction using AI/ML</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lung Cancer Risk Prediction</h1>
+            <p>AI/ML-Powered Risk Assessment Tool</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="lungCancerForm" method="POST" action="/predict">
+                <div class="form-grid">
+                    <!-- Demographics Section -->
+                    <div class="form-section demographics">
+                        <h3>Demographics</h3>
+                        
+                        <div class="form-group">
+                            <label for="age">Age (years)</label>
+                            <input type="number" id="age" name="age" min="1" max="120" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="male" name="gender" value="male" required>
+                                    <span>Male</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="female" name="gender" value="female" required>
+                                    <span>Female</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Environmental Factors -->
+                    <div class="form-section environment">
+                        <h3>Environmental Factors</h3>
+                        
+                        <div class="form-group">
+                            <label>Air Pollution Exposure</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="air_low" name="air_pollution" value="low" required>
+                                    <span>Low</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="air_moderate" name="air_pollution" value="moderate" required>
+                                    <span>Moderate</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="air_high" name="air_pollution" value="high" required>
+                                    <span>High</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Dust Allergy</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="dust_yes" name="dust_allergy" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="dust_no" name="dust_allergy" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Occupational Hazards</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="hazard_yes" name="occupational_hazards" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="hazard_no" name="occupational_hazards" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health History -->
+                    <div class="form-section health">
+                        <h3>Health History</h3>
+                        
+                        <div class="form-group">
+                            <label>Genetic Risk</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="genetic_low" name="genetic_risk" value="low" required>
+                                    <span>Low</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="genetic_moderate" name="genetic_risk" value="moderate" required>
+                                    <span>Moderate</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="genetic_high" name="genetic_risk" value="high" required>
+                                    <span>High</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Chronic Lung Disease</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="lung_yes" name="chronic_lung_disease" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="lung_no" name="chronic_lung_disease" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lifestyle Factors -->
+                    <div class="form-section lifestyle">
+                        <h3>Lifestyle Factors</h3>
+                        
+                        <div class="form-group">
+                            <label>Alcohol Use</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="alcohol_none" name="alcohol_use" value="none" required>
+                                    <span>None</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="alcohol_moderate" name="alcohol_use" value="moderate" required>
+                                    <span>Moderate</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="alcohol_heavy" name="alcohol_use" value="heavy" required>
+                                    <span>Heavy</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Balanced Diet</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="diet_yes" name="balanced_diet" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="diet_no" name="balanced_diet" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Obesity</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="obesity_yes" name="obesity" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="obesity_no" name="obesity" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Smoking</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="smoking_yes" name="smoking" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="smoking_no" name="smoking" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Passive Smoker</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="passive_yes" name="passive_smoker" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="passive_no" name="passive_smoker" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Symptoms Section -->
+                    <div class="form-section symptoms">
+                        <h3>Current Symptoms</h3>
+                        
+                        <div class="form-group">
+                            <label>Chest Pain</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="chest_yes" name="chest_pain" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="chest_no" name="chest_pain" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Coughing of Blood</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="blood_yes" name="coughing_blood" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="blood_no" name="coughing_blood" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Fatigue</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="fatigue_yes" name="fatigue" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="fatigue_no" name="fatigue" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Weight Loss</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="weight_yes" name="weight_loss" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="weight_no" name="weight_loss" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Shortness of Breath</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="breath_yes" name="shortness_breath" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="breath_no" name="shortness_breath" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Wheezing</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="wheezing_yes" name="wheezing" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="wheezing_no" name="wheezing" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Swallowing Difficulty</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="swallow_yes" name="swallowing_difficulty" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="swallow_no" name="swallowing_difficulty" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Clubbing of Finger Nails</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="clubbing_yes" name="clubbing_nails" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="clubbing_no" name="clubbing_nails" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Frequent Cold</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="cold_yes" name="frequent_cold" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="cold_no" name="frequent_cold" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Dry Cough</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="dry_cough_yes" name="dry_cough" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="dry_cough_no" name="dry_cough" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Snoring</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="snoring_yes" name="snoring" value="yes" required>
+                                    <span>Yes</span>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="snoring_no" name="snoring" value="no" required>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">Predict Lung Cancer Risk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
