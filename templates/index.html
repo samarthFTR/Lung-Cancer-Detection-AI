@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lung Cancer Risk Prediction using AI/ML</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .scale-input {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -14,7 +26,7 @@
         </div>
         
         <div class="form-container">
-            <form id="lungCancerForm" method="POST" action="/predict">
+            <form id="lungCancerForm" method="POST" action="/predictdata">
                 <div class="form-grid">
                     <!-- Demographics Section -->
                     <div class="form-section demographics">
@@ -29,11 +41,11 @@
                             <label>Gender</label>
                             <div class="radio-group">
                                 <div class="radio-option">
-                                    <input type="radio" id="male" name="gender" value="male" required>
+                                    <input type="radio" id="male" name="gender" value="Male" required>
                                     <span>Male</span>
                                 </div>
                                 <div class="radio-option">
-                                    <input type="radio" id="female" name="gender" value="female" required>
+                                    <input type="radio" id="female" name="gender" value="Female" required>
                                     <span>Female</span>
                                 </div>
                             </div>
@@ -45,48 +57,29 @@
                         <h3>Environmental Factors</h3>
                         
                         <div class="form-group">
-                            <label>Air Pollution Exposure</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="air_low" name="air_pollution" value="low" required>
-                                    <span>Low</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="air_moderate" name="air_pollution" value="moderate" required>
-                                    <span>Moderate</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="air_high" name="air_pollution" value="high" required>
-                                    <span>High</span>
-                                </div>
+                            <label for="air_pollution">Air Pollution Exposure (1-10)</label>
+                            <input type="range" id="air_pollution" name="air_pollution" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (Low)</span>
+                                <span>10 (High)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Dust Allergy</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="dust_yes" name="dust_allergy" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="dust_no" name="dust_allergy" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="dust_allergy">Dust Allergy (1-10)</label>
+                            <input type="range" id="dust_allergy" name="dust_allergy" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Occupational Hazards</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="hazard_yes" name="occupational_hazards" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="hazard_no" name="occupational_hazards" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="occupational_hazards">Occupational Hazards (1-10)</label>
+                            <input type="range" id="occupational_hazards" name="occupational_hazards" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                     </div>
@@ -96,34 +89,20 @@
                         <h3>Health History</h3>
                         
                         <div class="form-group">
-                            <label>Genetic Risk</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="genetic_low" name="genetic_risk" value="low" required>
-                                    <span>Low</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="genetic_moderate" name="genetic_risk" value="moderate" required>
-                                    <span>Moderate</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="genetic_high" name="genetic_risk" value="high" required>
-                                    <span>High</span>
-                                </div>
+                            <label for="genetic_risk">Genetic Risk (1-10)</label>
+                            <input type="range" id="genetic_risk" name="genetic_risk" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (Low)</span>
+                                <span>10 (High)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Chronic Lung Disease</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="lung_yes" name="chronic_lung_disease" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="lung_no" name="chronic_lung_disease" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="chronic_lung_disease">Chronic Lung Disease (1-10)</label>
+                            <input type="range" id="chronic_lung_disease" name="chronic_lung_disease" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                     </div>
@@ -133,76 +112,47 @@
                         <h3>Lifestyle Factors</h3>
                         
                         <div class="form-group">
-                            <label>Alcohol Use</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="alcohol_none" name="alcohol_use" value="none" required>
-                                    <span>None</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="alcohol_moderate" name="alcohol_use" value="moderate" required>
-                                    <span>Moderate</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="alcohol_heavy" name="alcohol_use" value="heavy" required>
-                                    <span>Heavy</span>
-                                </div>
+                            <label for="alcohol_use">Alcohol Use (1-10)</label>
+                            <input type="range" id="alcohol_use" name="alcohol_use" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Heavy)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Balanced Diet</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="diet_yes" name="balanced_diet" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="diet_no" name="balanced_diet" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="balanced_diet">Balanced Diet (1-10)</label>
+                            <input type="range" id="balanced_diet" name="balanced_diet" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (Poor)</span>
+                                <span>10 (Excellent)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Obesity</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="obesity_yes" name="obesity" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="obesity_no" name="obesity" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="obesity">Obesity (1-10)</label>
+                            <input type="range" id="obesity" name="obesity" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (Normal)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Smoking</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="smoking_yes" name="smoking" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="smoking_no" name="smoking" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="smoking">Smoking (1-10)</label>
+                            <input type="range" id="smoking" name="smoking" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Heavy)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Passive Smoker</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="passive_yes" name="passive_smoker" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="passive_no" name="passive_smoker" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="passive_smoker">Passive Smoking (1-10)</label>
+                            <input type="range" id="passive_smoker" name="passive_smoker" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Heavy)</span>
                             </div>
                         </div>
                     </div>
@@ -212,156 +162,101 @@
                         <h3>Current Symptoms</h3>
                         
                         <div class="form-group">
-                            <label>Chest Pain</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="chest_yes" name="chest_pain" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="chest_no" name="chest_pain" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="chest_pain">Chest Pain (1-10)</label>
+                            <input type="range" id="chest_pain" name="chest_pain" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Coughing of Blood</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="blood_yes" name="coughing_blood" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="blood_no" name="coughing_blood" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="coughing_of_blood">Coughing of Blood (1-10)</label>
+                            <input type="range" id="coughing_of_blood" name="coughing_of_blood" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Fatigue</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="fatigue_yes" name="fatigue" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="fatigue_no" name="fatigue" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="fatigue">Fatigue (1-10)</label>
+                            <input type="range" id="fatigue" name="fatigue" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Weight Loss</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="weight_yes" name="weight_loss" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="weight_no" name="weight_loss" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="weight_loss">Weight Loss (1-10)</label>
+                            <input type="range" id="weight_loss" name="weight_loss" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Shortness of Breath</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="breath_yes" name="shortness_breath" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="breath_no" name="shortness_breath" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="shortness_of_breath">Shortness of Breath (1-10)</label>
+                            <input type="range" id="shortness_of_breath" name="shortness_of_breath" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Wheezing</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="wheezing_yes" name="wheezing" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="wheezing_no" name="wheezing" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="wheezing">Wheezing (1-10)</label>
+                            <input type="range" id="wheezing" name="wheezing" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Swallowing Difficulty</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="swallow_yes" name="swallowing_difficulty" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="swallow_no" name="swallowing_difficulty" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="swallowing_difficulty">Swallowing Difficulty (1-10)</label>
+                            <input type="range" id="swallowing_difficulty" name="swallowing_difficulty" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Clubbing of Finger Nails</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="clubbing_yes" name="clubbing_nails" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="clubbing_no" name="clubbing_nails" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="clubbing_of_finger_nails">Clubbing of Finger Nails (1-10)</label>
+                            <input type="range" id="clubbing_of_finger_nails" name="clubbing_of_finger_nails" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Frequent Cold</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="cold_yes" name="frequent_cold" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="cold_no" name="frequent_cold" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="frequent_cold">Frequent Cold (1-10)</label>
+                            <input type="range" id="frequent_cold" name="frequent_cold" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Dry Cough</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="dry_cough_yes" name="dry_cough" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="dry_cough_no" name="dry_cough" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="dry_cough">Dry Cough (1-10)</label>
+                            <input type="range" id="dry_cough" name="dry_cough" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label>Snoring</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="snoring_yes" name="snoring" value="yes" required>
-                                    <span>Yes</span>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="snoring_no" name="snoring" value="no" required>
-                                    <span>No</span>
-                                </div>
+                            <label for="snoring">Snoring (1-10)</label>
+                            <input type="range" id="snoring" name="snoring" min="1" max="10" value="5" class="scale-input" required>
+                            <div class="scale-labels">
+                                <span>1 (None)</span>
+                                <span>10 (Severe)</span>
                             </div>
                         </div>
                     </div>
@@ -371,7 +266,36 @@
                     <button type="submit" class="submit-btn">Predict Lung Cancer Risk</button>
                 </div>
             </form>
+            
+            {% if results %}
+            <div class="result-section">
+                <h2>Prediction Result: {{ results }}</h2>
+                <div class="result-interpretation">
+                    {% if results == "High Risk" %}
+                        <p class="high-risk">Please consult a healthcare professional immediately.</p>
+                    {% elif results == "Medium Risk" %}
+                        <p class="medium-risk">Consider scheduling a check-up with your doctor.</p>
+                    {% else %}
+                        <p class="low-risk">Maintain healthy habits and regular check-ups.</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
+
+    <script>
+        // Update display of range values
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            const valueDisplay = document.createElement('div');
+            valueDisplay.className = 'range-value';
+            valueDisplay.textContent = slider.value;
+            slider.parentNode.insertBefore(valueDisplay, slider.nextSibling);
+            
+            slider.addEventListener('input', () => {
+                valueDisplay.textContent = slider.value;
+            });
+        });
+    </script>
 </body>
 </html>
