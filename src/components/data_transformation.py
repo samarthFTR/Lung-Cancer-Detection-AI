@@ -30,16 +30,14 @@ class DataTransformation:
 
     def get_data_tranformer_object(self): #for encoding and standardization
         try:
-            numerical_columns=['Age']
-            categorical_columns=[
-                'Gender', 'Air Pollution','Alcohol use',
+            numerical_columns=['Age', 'Air Pollution','Alcohol use',
                 'Dust Allergy', 'OccuPational Hazards', 'Genetic Risk',
                 'chronic Lung Disease', 'Balanced Diet', 'Obesity', 'Smoking',
                 'Passive Smoker', 'Chest Pain', 'Coughing of Blood', 'Fatigue',
                 'Weight Loss', 'Shortness of Breath', 'Wheezing',
                 'Swallowing Difficulty', 'Clubbing of Finger Nails',
-                'Frequent Cold','Dry Cough', 'Snoring'
-            ]
+                'Frequent Cold','Dry Cough', 'Snoring']
+            categorical_columns=['Gender']
 
             num_pipeline = Pipeline(
                 steps=[
@@ -52,8 +50,6 @@ class DataTransformation:
                 steps=[
                     ('imputer',SimpleImputer(strategy='most_frequent')),
                     ('OneHotEncoder',OneHotEncoder(sparse_output=False)),
-                    ('scalar',StandardScaler()),
-                    ('pca', PCA(n_components=0.85)),
                 ]
             )
             logging.info(f'Categorical columns: {categorical_columns}')

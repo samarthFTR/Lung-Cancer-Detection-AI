@@ -8,11 +8,11 @@ class PredictPipeline:
         pass
     def predict(self,features):
         try:
-            model_path = 'data\model.pkl'
-            preprocessor_path = 'data\preprocessor.pkl'
+            model_path = 'data/model.pkl'
+            preprocessor_path = 'data/preprocessor.pkl'
             model=load_object(model_path)
             preprocessor=load_object(preprocessor_path)
-            data_scaled = preprocessor.tranform(features)
+            data_scaled = preprocessor.transform(features)
             preds = model.predict(data_scaled)
             return preds
         except Exception as e:
