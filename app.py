@@ -46,11 +46,18 @@ def predict_datapoint():
             Snoring=request.form.get('snoring')  # Categorical
         )
         pred_df=data.get_data_as_frame()
-        print(pred_df)
+        print(f"Dataframe: {pred_df}")
+        print(f"DataFrame Head: {pred_df.columns}")
 
         Predict_Pipeline=PredictPipeline()
         results = Predict_Pipeline.predict(pred_df)
-        return render_template('index.html',results=results[0])
+        if results[0] == 0:
+            results = "High Risk"
+        elif results[0] == 1:
+            results = "Low Risk"
+        elif results == 2:
+            results = "Medium Risk"
+        return render_template('index.html',results=results)
     
 if __name__ == "__main__":
     app.run(host='0.0.0.0',debug=True)
