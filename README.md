@@ -133,3 +133,8 @@ Visit `http://localhost:5000` in your browser to access the dashboard.
 
 ---
 
+## Authors
+
+- [@samarthFTR](https://www.github.com/samarthFTR)
+
+---
