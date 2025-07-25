@@ -6,7 +6,7 @@ A complete machine learning pipeline to assess lung cancer risk from patient dat
 
 ---
 
-## 🔍 Overview
+## Overview
 
 This project covers the entire lifecycle of an ML solution:
 
@@ -18,7 +18,7 @@ This project covers the entire lifecycle of an ML solution:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Lung-Cancer-Detection-AI/
@@ -45,7 +45,7 @@ Lung-Cancer-Detection-AI/
 
 ---
 
-## 🧬 Dataset Info
+## Dataset Info
 
 * **File:** `cancer patient data sets.csv`
 * **Target Column:** `Level` (Low, Medium, High risk)
@@ -53,7 +53,7 @@ Lung-Cancer-Detection-AI/
 
 ---
 
-## ⚙️ How to Run the Project
+## How to Run the Project
 
 ### 1. Install Dependencies
 
@@ -85,7 +85,7 @@ Visit `http://localhost:5000` in your browser to access the dashboard.
 
 ---
 
-## 🌐 Web App Features
+## Web App Features
 
 * Clean, modern UI (Glassmorphism & iOS-inspired design)
 * Interactive sliders for severity input
@@ -99,7 +99,7 @@ Visit `http://localhost:5000` in your browser to access the dashboard.
 
 ---
 
-## 🧠 Model Training Details
+## Model Training Details
 
 * Algorithms used:
 
@@ -111,7 +111,7 @@ Visit `http://localhost:5000` in your browser to access the dashboard.
 
 ---
 
-## 🔧 Tech Stack
+## Tech Stack
 
 | Layer         | Tools Used                                 |
 | ------------- | ------------------------------------------ |
@@ -123,7 +123,7 @@ Visit `http://localhost:5000` in your browser to access the dashboard.
 
 ---
 
-## 🛠️ Future Improvements
+## Future Improvements
 
 * Add user authentication
 * Host live on Render or Hugging Face Spaces
