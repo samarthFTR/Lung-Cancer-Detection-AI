@@ -22,7 +22,7 @@ class DataIngestion:
     def initiate_data_ingestion(self):
          logging.info("Entered the date ingestion method")
          try:
-             df = pd.read_csv('src\dataset\cancer patient data sets.csv') #read dataset
+             df = pd.read_csv('src\\dataset\\cancer patient data sets.csv') #read dataset
 
              logging.info("Read the dataset as dataframe")
              os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
